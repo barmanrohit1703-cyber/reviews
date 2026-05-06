@@ -58,7 +58,7 @@ app.get("/", (req, res) => {
 app.get("/api/reviews", async (req, res) => {
   const count = parseInt(req.query.count) || 500;
   const rating = req.query.rating || "5,4";
-  const type = req.query.type || "PRODUCT_REVIEW";
+  const type = req.query.type || "";
   const status = req.query.status || "APPROVED";
 
   try {
