@@ -54,17 +54,26 @@ app.get("/", (req, res) => {
   });
 });
 
+// get reviews
 app.get("/api/reviews", async (req, res) => {
-  const count = parseInt(req.query.count) || 25;
-  const ratingParam = req.query.rating || "5,4";
+  const count = parseInt(req.query.count) || 100;
+  const rating = req.query.rating || "5,4";
+  const type = req.query.type || "PRODUCT_REVIEW";
+  const status = req.query.status || "APPROVED";
 
   try {
     if (!accessToken) await getAccessToken();
 
     let apiResponse;
     const fetchReviews = () =>
-      axios.get(`${REVIEWS_URL}?count=${count}&rating=${ratingParam}`, {
+      axios.get(REVIEWS_URL, {
         headers: { Authorization: `Bearer ${accessToken}` },
+        params: {
+          type,
+          count,
+          rating,
+          status,
+        },
       });
 
     try {
